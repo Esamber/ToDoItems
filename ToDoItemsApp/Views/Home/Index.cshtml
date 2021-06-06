@@ -1,0 +1,55 @@
+﻿@*@{
+    ViewData["Title"] = "Home Page";
+}*@
+
+@model IndexViewModel
+
+<div class="container mt-5">
+    <div class="row">
+        <a href="/home/additem" class="btn btn-primary btn-block">Add Item</a>
+    </div>
+    <br />
+    <h3>To Do Items:</h3>
+    <br/>
+    @if (Model.IncompleteItems.Count == 0)
+    {
+        <div class="alert alert-primary mt-5">
+            <h3 class="text-center">All To Do Items Are Complete!!!</h3>
+            <h4 class="text-center">Great Job!!!</h4>
+        </div>
+    }
+    else
+    {
+        <table class="table table-bordered table-hover table-striped">
+            <thead>
+                <tr>
+                    <td>Title</td>
+                    <td>Category</td>
+                    <td>Date Due</td>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Item i in Model.IncompleteItems)
+                {
+                    string classtxt = "";
+                    if (i.DateDue < DateTime.Now)
+                    {
+                        classtxt = "table-danger";
+                    }
+                    <tr class="@classtxt">
+                        <td>@i.Title</td>
+                        <td>@Model.Categories.FirstOrDefault(c => c.Id == i.CategoryId).Name</td>
+                        <td>@i.DateDue.ToShortDateString()</td>
+                        <td>
+                            <form method="post" action="/home/markascompleted">
+                                <input type="hidden" name="id" value="@i.Id" />
+                                <button class="btn btn-outline-primary">Mark as Completed</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>

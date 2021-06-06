@@ -1,0 +1,43 @@
+﻿@model CategoriesViewModel
+
+<div class="container mt-5">
+    <div class="row">
+        <a href="/home/addcategory" class="btn btn-primary btn-block">Add Category</a>
+    </div>
+    <br/>
+    <h3>Categories:</h3>
+    <br/>
+    @if (Model.Categories.Count == 0)
+    {
+        <div class="alert alert-secondary mt-5">
+            <h3 class="text-center">There are currently no categories.</h3>
+        </div>
+    }
+    else
+    {
+        <table class="table table-bordered table-hover table-striped">
+            <thead>
+                <tr>
+                    <td>Name</td>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Category c in Model.Categories)
+                {
+                    <tr>
+                        <td><a href="/home/itemsforcategory?id=@c.Id">@c.Name</a></td>
+                        <td>
+                            <form method="post" action="/home/editcategory">
+                                <input type="hidden" name="id" value="@c.Id" />
+                                <button class="btn btn-outline-primary">Edit Category</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+
+

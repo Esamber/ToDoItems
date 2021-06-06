@@ -1,0 +1,26 @@
+﻿@model AddItemViewModel
+
+<div class="container mt-5 col-6 jumbotron align-content-center justify-content-center">
+    <h1>Add Item</h1>
+    <form method="post" action="/home/submititem">
+        <div class="form-group">
+            <label for="title">Title:</label>
+            <input name="title" type="text" class="form-control form-control-lg" placeholder="Title" />
+        </div>
+        <select name="categoryid" class="form-control form-control-lg">
+            @foreach (Category category in Model.Categories)
+            {
+                <option value="@category.Id">@category.Name</option>
+            }
+        </select>
+        <div class="form-group">
+            <label for="datedue">Date Due:</label>
+            <input name="datedue" type="date" class="form-control form-control-lg" placeholder="Date Due" />
+        </div>
+        @*<div class="form-group">
+            <label for="datecompleted">Date Completed:</label>
+            <input name="datecompleted" type="date" class="form-control form-control-lg" placeholder="Date Completed" />
+        </div>*@
+        <button class="btn btn-primary">Save</button>
+    </form>
+</div>
